@@ -1,0 +1,74 @@
+Q1: Write PySpark code to read olympix_data.csv file"""
+
+Ans:
+
+ var rdd1 = sc.textFile("C://Users//xx//Desktop//project//second_RDD_Assignment//olympix_data_organized.csv")
+
+Q2: Write PySpark code to print the Olympic Sports/games in the dataset."""
+
+var rdd1 = sc.textFile("C://Users//xx//Desktop//project//second_RDD_Assignment//olympix_data_organized.csv")
+val sports = rdd1.map(x=>(x.split(","))(5))
+val unique_sports = sports.distinct()
+unique_sports.collect()
+
+Q3: Write PySpark code to plot the total number of medals in  each Olympic Sport/game. Sort the result based on the the total number of medals."""
+
+var rdd1 = sc.textFile("C://Users//xx//Desktop//project//second_RDD_Assignment//olympix_data_organized.csv")
+ var total_madel = rdd1.map(x=>(x.split(",")))                  //not correct
+var result = total_madel.map(y=>(y(5),y(9).toString().toInt)).reduceByKey(_+_)
+ var data = result.sortBy(x=>x._2)
+ data.collect()
+
+
+Q4: Find the total number of medals won by each country in swimming.
+
+var rdd1 = sc.textFile("C://Users//xx//Desktop//project//second_RDD_Assignment//olympix_data_organized.csv")                        
+var map1 = rdd1.map(x=>x.split(","))
+var filter1 = map1.filter(x=>x(5) == "Swimming")
+var result1 = filter1.map(y=>(y(2),y(9).toString().toInt)).reduceByKey(_+_)
+result1.collect()
+
+
+
+Q5: Find the total number of medals won by each country in Skeleton."""
+
+var map1 = rdd1.map(x=>x.split(","))
+var res1 = map1.filter(x=>x(5) == "Skeleton")
+var data = res1.map(x=>(x(2),x(9).toString().toInt)).reduceByKey(_+_)
+data.collect()
+
+
+Q6 Find the number of medals that the US won yearly."""
+
+var rdd1 = sc.textFile("C://Users//xx//Desktop//project//second_RDD_Assignment//olympix_data_organized.csv")
+var map1 = rdd1.map(x=>x.split(","))
+var filter1 = map1.filter(x=>x(2)=="United States")
+var result = filter1.map(y=>(y(2),y(9).toString().toInt)).reduceByKey(_+_)
+ result.collect())
+
+
+Q7 Find the total number of medals won by each country."""
+
+var rdd1 = sc.textFile("C://Users//xx//Desktop//project//second_RDD_Assignment//olympix_data_organized.csv")       
+var data = rdd1.map(x=>x.split(","))
+var result = data.map(y=>(y(2),y(9).toString().toInt)).reduceByKey(_+_)
+result.collect())
+
+
+Q8 Who was the oldest athletic in the olympics? which country was he/she from?"""
+
+var rdd1 = sc.textFile("C://Users//xx//Desktop//project//second_RDD_Assignment//olympix_data_organized.csv")       
+var rdd2 = rdd1.map(x=>x.split(","))
+var highest = rdd2.map(x=>x(1)).max                               //output = 61
+var data = rdd1.map(x => x.split(",")).filter(y => y.contains("61"))
+var res1 = data.map(y=>(y(0),y(1),y(2).toString().toString().toString()))
+
+
+
+
+
+
+
+
+
+

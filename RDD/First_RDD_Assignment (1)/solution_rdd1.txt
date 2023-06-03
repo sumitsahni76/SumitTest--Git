@@ -1,0 +1,32 @@
+1.)  How many unique professions do we have in the data file? 21
+
+Ans
+
+var rdd1 = sc.textFile("C://Users//xx//Desktop//project//First_RDD_Assignment (1)//user_data.txt")
+val unique_prof = rdd1.map(x => (x.split(",")(3), x))
+val group = unique_prof.groupByKey()
+group.count()
+
+
+
+2.)  How many different users belongs to unique professions ?
+sol:
+var rdd1 = sc.textFile("C://Users//xx//Desktop//project//First_RDD_Assignment (1)//user_data.txt")
+val unique_user= rdd1.map(x=>x.split(",")(3)).map(y=>(y,1)).reduceByKey(_+_)
+unique_user.collect()								
+
+																							
+3.)  How many users belong to a unique zip code in the sample file ? 795
+
+var rdd1 = sc.textFile("C://Users//xx//Desktop//project//First_RDD_Assignment (1)//user_data.txt")
+val unique_zip = rdd1.map(x=>x.split(",")(4)).map(y=>(y,1)).reduceByKey(_+_)
+unique_zip.collect()
+
+4.)  How many users are male and female ? 670,273
+
+ans-
+val male_count = rdd1.flatMap( x=>x.split(",").filter(y => y =="M"))
+val female_count = rdd1.flatMap( x=>x.split(",").filter(y => y =="F"))
+
+male_count.count()
+female_count.count()

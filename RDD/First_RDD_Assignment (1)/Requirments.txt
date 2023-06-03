@@ -1,0 +1,11 @@
+1.)  How many unique professions do we have in the data file?
+
+2.)  How many different users belongs to unique professions ?
+
+3.)  How many users belong to a unique zip code in the sample file ?
+
+4.)  How many users are male and female ?
+
+
+
+

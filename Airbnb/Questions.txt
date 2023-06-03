@@ -1,0 +1,52 @@
+1.) which host is hosted more number of room ?
+
+var df = spark.read.format("csv").option("header","true").option("inferSchema","true").load("C://Users//xx//Desktop//project//Airbnb//AB_NYC_2019.csv")
+
+var df1 = df.groupBy("host_id","host_name","room_type").count()
+var highest = df1.agg(max("count")).show()
+var result = df1.filter($"count" === 319).show()
+
+2.) which host is having minimum rating ?
+var df2 = df.select("host_id","host_name","number_of_reviews").groupBy("host_id","host_name","number_of_reviews").count().orderBy(asc("number_of_reviews"))
+var df3 = df2.na.drop()
+df3.show(1,false)
+
+3.) which host is having highest rating ?
+
+var df2 = df.select("host_id","host_name","number_of_reviews").groupBy("host_id","host_name","number_of_reviews").count().orderBy(desc("number_of_reviews")).show(1,false)
+
+
+4.) print first Five highest rated host ?
+
+var df2 = df.select("host_id","host_name","number_of_reviews").groupBy("host_id","host_name","number_of_reviews").count().orderBy(desc("number_of_reviews")).show(5,false)
+
+5.) print first Five lowest rated host ?
+
+var df2 = df.select("host_id","host_name","number_of_reviews").groupBy("host_id","host_name","number_of_reviews").count().orderBy(asc("number_of_reviews"))
+var df3 = df2.na.drop()
+df3.show(5,false)
+
+
+6.) how many rooms are avabible for 365 days ?
+
+var result = df.filter($"availability_365" === "365").groupBy("availability_365").count().show()
+
+7.) how many private rooms are avabible ?
+
+var result = df.filter($"room_type" === "Private room").groupBy("room_type").count().show()
+
+8.) how many Entire home/apt are avabible 
+
+
+var result = df.filter($"room_type" === "Private room").groupBy("Entire home/apt").count().show()
+
+9.) how many host  are hosted Atleast 16 nights ?
+
+minimum_nights
+var result = df.filter($"minimum_nights" >=16 ).groupBy("host_id").count()
+var host_count =result.count()
+println(host_count)
+
+
+
+ 
